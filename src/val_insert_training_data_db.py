@@ -1,15 +1,15 @@
 import argparse
 import json
-from cloud_connect import Cloud
 from training_validator import Validator
 from fetch_data_from_cloud import read_params, fetch_data
+from db_connect import DbConnector
 import json
 
 
-def validate(config_path):
+def validate_and_insert_into_db(config_path):
     """
-    main function for data validation
-    :param config_path:
+    main function for data validation and then insertion into database
+    :param config_path: params.yaml file path
     :return:
     """
     accepted_data = []
@@ -22,15 +22,24 @@ def validate(config_path):
             accepted_data.append(data)
             accepted_filenames.append(filename)
 
+    # prepare the validation report
     validate_data_report_dir = config["reports"]["validate_data_report"]
-
     with open(validate_data_report_dir, "w") as f:
         report = {
             "accepted_files": accepted_filenames
         }
         json.dump(report, f, indent=4)
 
-    return accepted_data
+    # insert data into database
+    n_records_inserted = insert_into_db(accepted_data, config)
+    insertion_report_dir = config["reports"]["training_data_insertion_report"]
+    with open(insertion_report_dir, "w") as f:
+        report = {
+            "number_of_documents_inserted": n_records_inserted
+        }
+        json.dump(report, f, indent=4)
+
+    return True
 
 
 def validate_data(filename, data):
@@ -46,7 +55,16 @@ def validate_data(filename, data):
             data.columns = columns
             if Validator.validate_name_of_columns(data):
                 if Validator.validate_null_columns(data):
-                    return data
+                    try:
+                        features = data.drop('class', axis=1)
+                        labels = data['class']
+                        features = features.astype(int)
+                        features.insert(len(features.columns), 'class', labels)
+                        data = features
+                        return data
+                    except Exception as e:
+                        print(f"rejected {filename} : Not able to convert column data type to int")
+                        return False
                 else:
                     print(f"rejected {filename} due to null column encounter")
                     return False
@@ -61,8 +79,19 @@ def validate_data(filename, data):
         return False
 
 
+def insert_into_db(dataframes, config):
+    n_records_inserted = 0
+    db = DbConnector(config)
+    db.clear_training_folder()
+    for data in dataframes:
+        db.insert_training_data(data)
+        n_records_inserted = n_records_inserted + len(data)
+    db.close()
+    return n_records_inserted
+
+
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("--config", default="params.yaml")
     parsed_args = args.parse_args()
-    validate(config_path=parsed_args.config)
+    validate_and_insert_into_db(config_path=parsed_args.config)

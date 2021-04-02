@@ -23,3 +23,22 @@ stages:
     - path: reports/validated_training_filenames_report.json
       md5: 7b1ff0b357c7e5f82f43de2e6ae9a5c6
       size: 530
+  validate_and_insert_training_data_into_db:
+    cmd: python src/val_insert_training_data_db.py --config=params.yaml
+    deps:
+    - path: src/db_connect.py
+      md5: b4e2108c5fe67f4b42fc316fa0c06827
+      size: 4153
+    - path: src/fetch_data_from_cloud.py
+      md5: 3b7877108a48e8191b13d2b19df3f0f1
+      size: 1011
+    - path: src/training_validator.py
+      md5: 46f0f814a9e6baa16bb52eb607468263
+      size: 1475
+    outs:
+    - path: reports/training_data_insertion_report.json
+      md5: 281719fdc12d2f82e0f59def3ada949e
+      size: 48
+    - path: reports/validated_training_filenames_report.json
+      md5: 7b1ff0b357c7e5f82f43de2e6ae9a5c6
+      size: 530

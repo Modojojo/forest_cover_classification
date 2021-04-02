@@ -6,10 +6,12 @@ stages:
     outs:
       - reports/training_data_fetch_report.json
 
-  validate_training_data:
-    cmd: python src/validate_training_data.py --config=params.yaml
+  validate_and_insert_training_data_into_db:
+    cmd: python src/val_insert_training_data_db.py --config=params.yaml
     deps:
       - src/fetch_data_from_cloud.py
       - src/training_validator.py
+      - src/db_connect.py
     outs:
       - reports/validated_training_filenames_report.json
+      - reports/training_data_insertion_report.json

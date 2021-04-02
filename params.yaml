@@ -9,11 +9,16 @@ split_data:
 reports:
   fetch_data_report: reports/training_data_fetch_report.json
   validate_data_report: reports/validated_training_filenames_report.json
+  training_data_insertion_report: reports/training_data_insertion_report.json
 
 cloud:
   training_data_folder: forest_cover/data/training_files/
   prediction_data_folder: forest_cover/data/prediction_files/
   bucket_name: modomegabucket
+
+database:
+  raw_training_data_db: TRAINING_DATA
+  raw_bad_data_db: BAD_DATA
 
 training_schema:
   number_of_columns: 52
