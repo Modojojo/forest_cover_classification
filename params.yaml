@@ -3,9 +3,6 @@ base:
   random_state: 42
   target_col: class
 
-split_data:
-  test_size: 0.25
-
 reports:
   fetch_data_report: reports/training_data_fetch_report.json
   validate_data_report: reports/validated_training_filenames_report.json
@@ -15,13 +12,32 @@ cloud:
   training_data_folder: forest_cover/data/training_files/
   prediction_data_folder: forest_cover/data/prediction_files/
   bucket_name: modomegabucket
+  models_save_path: forest_cover/models/
+  clustering_model_name: k_means_clustering_model.pkl
 
 database:
   raw_training_data_db: TRAINING_DATA
   raw_bad_data_db: BAD_DATA
 
 training_schema:
+  test_size: 0.25
   number_of_columns: 52
+  target_label_encodings:
+    Lodgepole_Pine: 1
+    Spruce_Fir: 2
+    Douglas_fir: 3
+    Krummholz: 4
+    Ponderosa_Pine: 5
+    Aspen: 6
+    Cottonwood_Willow: 7
+  numerical_columns:
+    - elevation
+    - aspect
+    - slope
+    - horizontal_distance_to_hydrology
+    - vertical_distance_to_hydrology
+    - horizontal_distance_to_roadways
+    - horizontal_distance_to_fire_points
   column_names:
     - elevation
     - aspect

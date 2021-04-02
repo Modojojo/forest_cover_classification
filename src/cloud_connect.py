@@ -22,7 +22,7 @@ class Cloud:
         self.connect()
         self.training_data_dir = config["cloud"]["training_data_folder"]
         self.prediction_data_dir = config["cloud"]["prediction_data_folder"]
-        self.models_path = 'wafer/models/'
+        self.models_path = config["cloud"]["models_save_path"]
 
     def connect(self):
         """
