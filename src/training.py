@@ -6,6 +6,7 @@ from training_data_preprocessor import Preprocessor
 from sklearn.model_selection import train_test_split
 import argparse
 import yaml
+import json
 
 
 def read_params(config_path):
@@ -50,6 +51,7 @@ def start_training(config_path):
                          value=labels)
 
     # MODEL TRAINING
+    prediction_schema_dict = {"dropped_columns": dropped_cols}
     for cluster_number in training_data["cluster"].unique().tolist():
         data = training_data[training_data["cluster"] == cluster_number].drop(["cluster"], axis=1)
         training_features = data.drop(config["base"]["target_col"], axis=1)
@@ -61,7 +63,15 @@ def start_training(config_path):
         # CREATE MODEL_BUILDER OBJECT, TRAIN MODELS AND OBTAIN THE BEST MODEL
         model = Model(train_x=x_train, train_y=y_train, test_x=x_test, test_y=y_test)
         (best_model, best_model_name, best_model_metrics) = model.get_best_model()
+        model_filename = str(cluster_number) + '_' + str(best_model_name) + '/' + 'model.pkl'
+        cloud.save_model(best_model, model_filename)
+        db.save_metrics(best_model_metrics)
+        prediction_schema_dict[str(cluster_number)] = model_filename
         print("Trained Best Model {} for cluster {}".format(best_model_name, cluster_number))
+    cloud.write_json(prediction_schema_dict, "prediction_schema.json")
+    training_models_report = config["reports"]["training_models_report"]
+    with open(training_models_report, "w") as f:
+        json.dump(prediction_schema_dict, f, indent=4)
 
 
 if __name__ == "__main__":

@@ -15,3 +15,14 @@ stages:
     outs:
       - reports/validated_training_filenames_report.json
       - reports/training_data_insertion_report.json
+
+  training:
+    cmd: python src/training.py --config=params.yaml
+    deps:
+      - src/db_connect.py
+      - src/model_builder.py
+      - src/cluster_builder.py
+      - src/cloud_connect.py
+      - src/training_data_preprocessor.py
+    outs:
+      - reports/training_models_report.json

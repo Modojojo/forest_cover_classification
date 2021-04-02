@@ -266,9 +266,9 @@ class Model:
     def metrics(self, best_model, best_model_name):
         predictions = best_model.predict(self.test_x)
         accuracy = accuracy_score(self.test_y, predictions)
-        recall = recall_score(self.test_y, predictions, average="micro")
-        precision = precision_score(self.test_y, predictions, average="micro")
-        f1 = f1_score(self.test_y, predictions, average="micro")
+        recall = recall_score(self.test_y, predictions, average="weighted")
+        precision = precision_score(self.test_y, predictions, average="weighted")
+        f1 = f1_score(self.test_y, predictions, average="weighted")
         metrics_dict = {'model': str(best_model_name),
                         'accuracy': str(accuracy),
                         'recall': str(recall),

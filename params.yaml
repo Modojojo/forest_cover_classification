@@ -7,6 +7,7 @@ reports:
   fetch_data_report: reports/training_data_fetch_report.json
   validate_data_report: reports/validated_training_filenames_report.json
   training_data_insertion_report: reports/training_data_insertion_report.json
+  training_models_report: reports/training_models_report.json
 
 cloud:
   training_data_folder: forest_cover/data/training_files/
@@ -20,7 +21,7 @@ database:
   raw_bad_data_db: BAD_DATA
 
 training_schema:
-  test_size: 0.25
+  test_size: 0.4
   number_of_columns: 52
   target_label_encodings:
     Lodgepole_Pine: 1
