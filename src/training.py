@@ -39,6 +39,7 @@ def start_training(config_path):
     # CLUSTERING
     cluster_builder = Cluster(cloud)
     cluster_id = cluster_builder.create_cluster(features=features)
+    # Add cluster column in features - to be used while training individual models for individual clusters
     features.insert(loc=len(features.columns),
                     column="cluster",
                     value=cluster_id)
@@ -50,9 +51,12 @@ def start_training(config_path):
                          column=config["base"]["target_col"],
                          value=labels)
 
+    prediction_schema_dict = {"dropped_columns": dropped_cols}  # will be used to store model and cluster relations
+
     # MODEL TRAINING
-    prediction_schema_dict = {"dropped_columns": dropped_cols}
     for cluster_number in training_data["cluster"].unique().tolist():
+
+        # fetch data based on cluster number and divide into training and testing sets
         data = training_data[training_data["cluster"] == cluster_number].drop(["cluster"], axis=1)
         training_features = data.drop(config["base"]["target_col"], axis=1)
         training_labels = data[config["base"]["target_col"]]
@@ -63,15 +67,16 @@ def start_training(config_path):
         # CREATE MODEL_BUILDER OBJECT, TRAIN MODELS AND OBTAIN THE BEST MODEL
         model = Model(train_x=x_train, train_y=y_train, test_x=x_test, test_y=y_test)
         (best_model, best_model_name, best_model_metrics) = model.get_best_model()
+        # Create model filepath for cloud storage
         model_filename = str(cluster_number) + '_' + str(best_model_name) + '/' + 'model.pkl'
-        cloud.save_model(best_model, model_filename)
-        db.save_metrics(best_model_metrics)
-        prediction_schema_dict[str(cluster_number)] = model_filename
+        cloud.save_model(best_model, model_filename)    # Save model to cloud
+        db.save_metrics(best_model_metrics)     # Save trained model metrics in database
+        prediction_schema_dict[str(cluster_number)] = model_filename    # saving the model ralated to current cluster no
         print("Trained Best Model {} for cluster {}".format(best_model_name, cluster_number))
-    cloud.write_json(prediction_schema_dict, "prediction_schema.json")
-    training_models_report = config["reports"]["training_models_report"]
+    cloud.write_json(prediction_schema_dict, "prediction_schema.json")  # writing prediction schema file to cloud
+    training_models_report = config["reports"]["training_models_report"]    # fetch reports directory path
     with open(training_models_report, "w") as f:
-        json.dump(prediction_schema_dict, f, indent=4)
+        json.dump(prediction_schema_dict, f, indent=4)      # save the prediction_schema info in reports
 
 
 if __name__ == "__main__":
