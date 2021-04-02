@@ -1,0 +1,5 @@
+boto3
+sklearn
+pyyaml
+pandas
+dvc

@@ -1,0 +1,15 @@
+stages:
+  fetch_training_data:
+    cmd: python src/fetch_data_from_cloud.py --config=params.yaml
+    deps:
+      - src/cloud_connect.py
+    outs:
+      - reports/training_data_fetch_report.json
+
+  validate_training_data:
+    cmd: python src/validate_training_data.py --config=params.yaml
+    deps:
+      - src/fetch_data_from_cloud.py
+      - src/training_validator.py
+    outs:
+      - reports/validated_training_filenames_report.json
