@@ -15,6 +15,8 @@ class DbConnector:
     def __init__(self, config):
         self.TRAINING_COLLECTION_NAME = config["database"]["raw_training_data_db"]
         self.BAD_DATA_COLLECTION_NAME = config["database"]["raw_bad_data_db"]
+        self.PREDICTION_DATA_COLLECTION_NAME = config["database"]["raw_prediction_data_db"]
+        self.PREDICTIONS_COLLECTION_NAME = config["database"]["predictions_db"]
         self.db_key = DB_KEY
         self.db = None
         self.client = None
@@ -86,7 +88,7 @@ class DbConnector:
     # Prediction Functionality
 
     def insert_predictions(self, predictions):
-        collection = self.database['PREDICTIONS']
+        collection = self.database[self.PREDICTIONS_COLLECTION_NAME]
         for i in predictions:
             predictions[i] = str(predictions[i])
         timenow = self.get_time()
@@ -96,16 +98,16 @@ class DbConnector:
         collection.insert(predictions)
 
     def insert_prediction_data(self, file):
-        collection = self.database['prediction_data']
+        collection = self.database[self.PREDICTION_DATA_COLLECTION_NAME]
         collection.insert_many(file.to_dict('records'))
 
     def fetch_prediction_data(self):
-        collection = self.database['prediction_data']
-        data = pd.DataFrame.from_records(collection.find({}, {'_id':0}))
+        collection = self.database[self.PREDICTION_DATA_COLLECTION_NAME]
+        data = pd.DataFrame.from_records(collection.find({}, {'_id': 0}))
         return data
 
     def clear_prediction_folder(self):
-        collection = self.database['prediction_data']
+        collection = self.database[self.PREDICTION_DATA_COLLECTION_NAME]
         collection.drop()
 
     def insert_errored_prediction_data(self, file):

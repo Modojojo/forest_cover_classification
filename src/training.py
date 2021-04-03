@@ -36,6 +36,9 @@ def start_training(config_path):
     preprocessor = Preprocessor(config)
     features, labels, standardScalarModel, dropped_cols = preprocessor.preprocess(training_data)
 
+    # SAVING STANDARD SCALAR MODEL TO CLOUD
+    cloud.save_model(standardScalarModel, config["cloud"]["standard_scalar_model"])
+
     # CLUSTERING
     cluster_builder = Cluster(cloud)
     cluster_id = cluster_builder.create_cluster(features=features)

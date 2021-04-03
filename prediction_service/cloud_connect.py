@@ -72,7 +72,9 @@ class Cloud:
         else:
             filename_list = []
             for objects in self.bucket.objects.filter(Prefix=self.prediction_data_dir):
-                filename_list.append(str(objects.key).split('/')[-1])
+                filename = str(objects.key).split('/')[-1]
+                if filename != "":
+                    filename_list.append(filename)
             return filename_list
 
     def save_model(self, model, filename):
