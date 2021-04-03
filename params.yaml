@@ -16,7 +16,7 @@ cloud:
   bucket_name: modomegabucket
   models_save_path: forest_cover/models/
   clustering_model_name: k_means_clustering_model.pkl
-  standard_scalar_model: scalar.pkl
+  standard_scaler_model: standard_scaler.pkl
   prediction_schema: prediction_schema.json
 
 database:

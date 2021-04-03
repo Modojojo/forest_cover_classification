@@ -3,7 +3,7 @@ import yaml
 from prediction_service.db_connect import DbConnector
 from prediction_service.prediction_preprocessor import Preprocessor
 from prediction_service.cloud_connect import Cloud
-from prediction_service.predict_cluster import predict as predict_cluster
+from prediction_service.predict_cluster import Cluster
 from prediction_service.predict_class import predict as predict_class
 
 
@@ -27,7 +27,8 @@ def prediction(config_path):
     processed_data = preprocessor.preprocess(non_processed_data)
 
     # CLUSTERING
-    cluster_predictions = predict_cluster(processed_data)
+    cluster_object = Cluster(cloud_object=cloud)
+    cluster_predictions = cluster_object.predict(processed_data)
 
     # CLASSIFICATION
     predictions = predict_class(processed_data, cluster_predictions)

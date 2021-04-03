@@ -34,10 +34,10 @@ def start_training(config_path):
 
     # PREPROCESS DATA
     preprocessor = Preprocessor(config)
-    features, labels, standardScalarModel, dropped_cols = preprocessor.preprocess(training_data)
+    features, labels, standardScalerModel, dropped_cols = preprocessor.preprocess(training_data)
 
-    # SAVING STANDARD SCALAR MODEL TO CLOUD
-    cloud.save_model(standardScalarModel, config["cloud"]["standard_scalar_model"])
+    # SAVING STANDARD SCALER MODEL TO CLOUD
+    cloud.save_model(standardScalerModel, config["cloud"]["standard_scaler_model"])
 
     # CLUSTERING
     cluster_builder = Cluster(cloud)
@@ -76,6 +76,7 @@ def start_training(config_path):
         db.save_metrics(best_model_metrics)     # Save trained model metrics in database
         prediction_schema_dict[str(cluster_number)] = model_filename    # saving the model ralated to current cluster no
         print("Trained Best Model {} for cluster {}".format(best_model_name, cluster_number))
+
     cloud.write_json(prediction_schema_dict, "prediction_schema.json")  # writing prediction schema file to cloud
     training_models_report = config["reports"]["training_models_report"]    # fetch reports directory path
     with open(training_models_report, "w") as f:

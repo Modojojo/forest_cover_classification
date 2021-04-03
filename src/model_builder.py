@@ -17,14 +17,14 @@ class Model:
         self.param_grid_xgboost = {'max_depth': range(5, 6),
                                    'n_estimators': range(50, 60, 10),
                                    'learning_rate': [0.5, 0.1, 0.01, 0.001]}
-        self.param_grid_random_forest = {'n_estimators': range(50, 90, 20),
+        self.param_grid_random_forest = {'n_estimators': range(50, 150, 20),
                                          'criterion': ['gini', 'entropy'],
-                                         'max_depth': range(5, 6)}
+                                         'max_depth': range(3, 8)}
         self.param_grid_logistic_regression = {'penalty': ['l2', 'none']}
         self.param_grid_svc = {'kernel': ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed'],
                                'degree': range(3, 10)}
         self.param_grid_decision_tree = {'criterion': ['gini', 'entropy'],
-                                         'max_depth': range(5, 6)}
+                                         'max_depth': range(3, 8)}
 
     def train_xgboost(self):
         try:
@@ -201,18 +201,18 @@ class Model:
             # self.logger.pipeline_logs('MODEL SELECTION : Multi Model Training Started')
             #xgboost_clf = self.train_xgboost()
             random_forest_clf = self.train_random_forest()
-            logistic_regression_clf = self.train_logistic_regression()
+            #logistic_regression_clf = self.train_logistic_regression()
             decision_tree_clf = self.train_decision_tree()
             #support_vector_clf = self.train_svc()
             # self.logger.pipeline_logs('MODEL SELECTION : Multi Model Training -- COMPLETED')
 
             models_dictionary = { #'XGBoost': xgboost_clf,
                                  'Random_Forest': random_forest_clf,
-                                 'Logistic_Regression': logistic_regression_clf,
+                                 'Logistic_Regression': False, #logistic_regression_clf,
                                  'Decision_Tree': decision_tree_clf,
-                                 'Support_Vector_Machine': False#support_vector_clf
+                                 'Support_Vector_Machine': False #support_vector_clf
             }
-            scores_dictionary = { #'XGBoost': None,
+            scores_dictionary = {'XGBoost': None,
                                  'Random_Forest': None,
                                  'Logistic_Regression': None,
                                  'Decision_Tree': None,

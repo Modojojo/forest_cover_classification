@@ -4,8 +4,8 @@ stages:
     cmd: python src/fetch_data_from_cloud.py --config=params.yaml
     deps:
     - path: src/cloud_connect.py
-      md5: 0435d08d752e3e99ab4224a267ca47ae
-      size: 4050
+      md5: 7f0527a1abe1fbbdfc07e9101a67aa9c
+      size: 4000
     outs:
     - path: reports/training_data_fetch_report.json
       md5: 960d0f8944213d4b79a7aeaee84c6e78
@@ -27,8 +27,8 @@ stages:
     cmd: python src/val_insert_training_data_db.py --config=params.yaml
     deps:
     - path: src/db_connect.py
-      md5: b4e2108c5fe67f4b42fc316fa0c06827
-      size: 4153
+      md5: 7b49745dbf25f5b013289187596d3f3a
+      size: 4089
     - path: src/fetch_data_from_cloud.py
       md5: 3b7877108a48e8191b13d2b19df3f0f1
       size: 1011
@@ -46,21 +46,21 @@ stages:
     cmd: python src/training.py --config=params.yaml
     deps:
     - path: src/cloud_connect.py
-      md5: 0435d08d752e3e99ab4224a267ca47ae
-      size: 4050
+      md5: 7f0527a1abe1fbbdfc07e9101a67aa9c
+      size: 4000
     - path: src/cluster_builder.py
       md5: e9833f0284d7b68a1585f1cd3c4bbdd7
       size: 3196
     - path: src/db_connect.py
-      md5: b4e2108c5fe67f4b42fc316fa0c06827
-      size: 4153
+      md5: 7b49745dbf25f5b013289187596d3f3a
+      size: 4089
     - path: src/model_builder.py
-      md5: 496e06ec7104fa25aaff4470bab22146
-      size: 14544
+      md5: 616fa4159a1a9ae99879c213c6716103
+      size: 14553
     - path: src/training_data_preprocessor.py
       md5: 710e7a9e4f460fb8517e1bf82da0a99a
       size: 2449
     outs:
     - path: reports/training_models_report.json
-      md5: 102751818344182d18f97f1e8c53c98d
+      md5: b2c8b69d7d5826176a5a3a69788e6d76
       size: 177
