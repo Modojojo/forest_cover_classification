@@ -15,9 +15,10 @@ class Preprocessor:
         unwanted_cols = self.prediction_schema["dropped_columns"]
         cols_to_drop = []
         for col in unwanted_cols:
-            if col != "":
+            if (col != "") and (col in data.columns.tolist()):
                 cols_to_drop.append(col)
-        data = data.drop(cols_to_drop, axis=1)
+        if len(cols_to_drop) != 0:
+            data = data.drop(cols_to_drop, axis=1)
         return data
 
     def perform_scaling(self, data):

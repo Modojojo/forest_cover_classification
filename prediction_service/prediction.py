@@ -4,6 +4,7 @@ from db_connect import DbConnector
 from prediction_preprocessor import Preprocessor
 from cloud_connect import Cloud
 from predict_cluster import Cluster
+from predict_class import Classifier
 
 
 def read_params(config_path):
@@ -29,11 +30,14 @@ def prediction(config_path):
     cluster_object = Cluster(cloud_object=cloud)
     cluster_predictions = cluster_object.predict(processed_data)
 
-    # # CLASSIFICATION
-    # predictions = predict_class(processed_data, cluster_predictions)
-    #
-    # # SAVE PREDICTIONS IN DB
-    # db.insert_predictions(predictions)
+    # CLASSIFICATION
+    classifier = Classifier(config=config,
+                            cloud=cloud,
+                            prediction_schema=prediction_schema)
+    predictions = classifier.predict(data=processed_data, clusters=cluster_predictions)
+
+    # SAVE PREDICTIONS IN DB
+    db.insert_predictions(predictions)
 
 
 if __name__ == "__main__":
