@@ -1,10 +1,9 @@
 import argparse
 import yaml
-from prediction_service.db_connect import DbConnector
-from prediction_service.prediction_preprocessor import Preprocessor
-from prediction_service.cloud_connect import Cloud
-from prediction_service.predict_cluster import Cluster
-from prediction_service.predict_class import predict as predict_class
+from db_connect import DbConnector
+from prediction_preprocessor import Preprocessor
+from cloud_connect import Cloud
+from predict_cluster import Cluster
 
 
 def read_params(config_path):
@@ -30,11 +29,11 @@ def prediction(config_path):
     cluster_object = Cluster(cloud_object=cloud)
     cluster_predictions = cluster_object.predict(processed_data)
 
-    # CLASSIFICATION
-    predictions = predict_class(processed_data, cluster_predictions)
-
-    # SAVE PREDICTIONS IN DB
-    db.insert_predictions(predictions)
+    # # CLASSIFICATION
+    # predictions = predict_class(processed_data, cluster_predictions)
+    #
+    # # SAVE PREDICTIONS IN DB
+    # db.insert_predictions(predictions)
 
 
 if __name__ == "__main__":
