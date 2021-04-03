@@ -9,7 +9,14 @@ directories = [
     "tests",
     "prediction_service",
     "reports",
-    os.path.join("prediction_service", "model")
+    os.path.join("prediction_service", "model"),
+    "webapp",
+    os.path.join("webapp", "static"),
+    os.path.join("webapp", "template"),
+    os.path.join("webapp", "static", "css"),
+    os.path.join("webapp", "static", "script"),
+
+
 ]
 
 for dir_ in directories:

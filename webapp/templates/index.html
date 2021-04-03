@@ -1,0 +1,130 @@
+<html>
+<head>
+    <title>Forest Cover</title>
+    <link rel = "stylesheet" type = "text/css" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <style>
+        .bgr-gray{
+            background-color:#ffffff;
+        }
+        .body-bgr{
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+        .body-img{
+            background-image: url('bg.jpg');
+        }
+        .navbar-bg{
+            background-color:#464f41;
+        }
+        .input-bg{
+            background-color: rgba(204, 237, 208, 0.3);
+            border: 0px;
+        }
+        .card-bg {
+            background-color: rgba(131, 158, 134, 0.5);
+            border: 0px;
+        }
+        hr.solid {
+            border-top: 3px solid linear-gradient(to bottom right, #FF5F6D, #FFC371);
+        }
+        .hr1 {
+            border:1px;
+            border-radius:1px;
+            height: 3px;
+            background-image: linear-gradient(to bottom right, #FF5F6D, #FFC371);
+        }
+    </style>
+</head>
+<body class = "body-bgr">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg shadow-lg">
+      <a class="navbar-brand" href="#">Forest Cover Prediction</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/training"><i class="bi bi-card-text"></i> Training Dashboard</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#"><i class="bi bi-file-earmark-code-fill"></i> Source Code</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class = "container-fluid">
+        <div class = "row mt-3 mb-3 mr-3 ml-3">
+            <div class = "col-md-6">
+                <div class = "card shadow card-bg mb-2">
+                    <form onsubmit="/" method="post">
+                        <div class = "card-header">
+                            <h5 class = "card-title pt-2">Fill in the values</h5>
+                        </div>
+                        <div class = "card-body">
+                            <div class = "form-group">
+                                <input name="elevation" class = "form-control input-bg" placeholder="Elevation in meters">
+                            </div>
+                            <div class = "form-group">
+                                <input name="aspect" class = "form-control input-bg" placeholder="Aspect in degrees azimuth">
+                            </div>
+                            <div class = "form-group">
+                                <input name="slope" class = "form-control input-bg" placeholder="Slope in degrees">
+                            </div>
+                            <div class = "form-group">
+                                <input name="horizontal_distance_to_hydrology" class = "form-control input-bg" placeholder="Horz Dist to nearest surface water features">
+                            </div>
+                            <div class = "form-group">
+                                <input name="vertical_distance_to_hydrology" class = "form-control input-bg" placeholder="Vert Dist to nearest surface water features">
+                            </div>
+                            <div class = "form-group">
+                                <input name="horizontal_distance_to_roadways" class = "form-control input-bg" placeholder="Horz Dist to nearest roadway">
+                            </div>
+                            <div class = "form-group">
+                                <input name="horizontal_distance_to_fire_points" class = "form-control input-bg" placeholder="Horz Dist to nearest wildfire ignition points">
+                            </div>
+                            <select name = "wildernessType" class="form-select form-control form-group input-bg">
+                                <option selected>Wilderness Type</option>
+                                {% for wilderness in wilderness_selection %}
+                                <option value={{wilderness[1]}}>{{wilderness[0]}}</option>
+                                {% endfor %}
+                            </select>
+                            <select name = "soilType" class="form-select form-control form-group input-bg">
+                                <option selected>Soil Type</option>
+                                {% for soil in soil_selection %}
+                                <option value={{soil[1]}} >{{soil[0]}}</option>
+                                {% endfor %}
+                            </select>
+                            <div class = "form-group">
+                                <button class="btn btn-dark" type="submit">Predict</button>
+                                 <a href="/" class="btn btn-outline-dark">Reset</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class = "card shadow card-bg">
+                    <div class = "card-header">
+                        <h5 class = "card-title pt-2">Prediction</h5>
+                    </div>
+                    <div class = "card-body">
+                        <div class="jumbotron jumbotron-fluid card-bg">
+                          <div class="container">
+                              {{prediction}}
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type = "text/javascript">
+
+    </script>
+</body>
+</html>

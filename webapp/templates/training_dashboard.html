@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>dashboard</title>
+    <link rel = "stylesheet" type = "text/css" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <style>
+        .bgr-gray{
+            background-color:#ffffff;
+        }
+        .body-bgr{
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+        .body-img{
+            background-image: url('bg.jpg');
+        }
+        .navbar-bg{
+            background-color:#464f41;
+        }
+        .input-bg{
+            background-color: rgba(204, 237, 208, 0.3);
+            border: 0px;
+        }
+        .card-bg {
+            background-color: rgba(131, 158, 134, 0.5);
+            border: 0px;
+        }
+        hr.solid {
+            border-top: 3px solid linear-gradient(to bottom right, #FF5F6D, #FFC371);
+        }
+        .hr1 {
+            border:1px;
+            border-radius:1px;
+            height: 3px;
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+    </style>
+</head>
+<body class = "body-bgr">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg shadow-lg">
+      <a class="navbar-brand" href="#">Forest Cover - Training Dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#"><i class="bi bi-card-text"></i> Training Dashboard<span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#"><i class="bi bi-file-earmark-code-fill"></i> Source Code</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class = "container-fluid">
+        <div class = "row mt-4 mb-2 ml-2 mr-2 ">
+
+            <div class = "col-md-4">
+                <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Start Training</h5>
+                        <hr class="hr1">
+                        <h6 class="card-subtitle mb-2 text-muted">Commence the training Process</h6>
+                        <p class="card-text">Starts the Training process with whatever recent data is Available on Server data folder</p>
+                        <form action="/train" method="get">
+                            <button class="btn btn-dark" id="trainBtn" type="submit">Start Training</button>
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Start Predictions</h5>
+                        <hr class="hr1">
+                        <h6 class="card-subtitle mb-2 text-muted">Commence the Prediction Process</h6>
+                        <p class="card-text">Starts the Prediction process with whatever recent data is Available on Server's Prediction data folder</p>
+                        <form action="/predict" method="get">
+                            <button class="btn btn-dark" id="predictBtn" type="submit">Start Prediction</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class = "col-md-4">
+                <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">View Statistics</h5>
+                        <hr class="hr1">
+                        <h6 class="card-subtitle mb-2 text-muted">Open Previously trained model Stats</h6>
+                        <p class="card-text">View Metrics for Each model trained during the Training Process</p>
+                        <form action="/metrics" method="get">
+                            <button class="btn btn-dark" id="metricsBtn" type="submit">View Statistics</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "col-md-4">
+                <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Logs</h5>
+                        <hr class="hr1">
+                        <p class="card-text">Lets you View the logs based on the selection.</p>
+                        <form action="/logs" method="post">
+                            <select name = "logs" class="form-select form-control form-group">
+                              <option selected>Select Logs type</option>
+                              <option value="process">Process Logs</option>
+                              <option value="training">Training Logs</option>
+                              <option value="file_validation">File Validation Logs</option>
+                            </select>
+                            <button class="btn btn-dark form-group" id="logsBtn" type="submit">View Logs</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type = "text/javascript">
+
+    </script>
+</body>
+</html>

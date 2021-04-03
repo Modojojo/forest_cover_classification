@@ -8,3 +8,4 @@ dnspython
 xgboost
 kneed
 imblearn
+flask
