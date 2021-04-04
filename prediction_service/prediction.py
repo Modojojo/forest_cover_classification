@@ -2,11 +2,23 @@ import argparse
 import yaml
 import pandas as pd
 import numpy as np
-from prediction_service.db_connect import DbConnector
-from prediction_service.prediction_preprocessor import Preprocessor
-from prediction_service.cloud_connect import Cloud
-from prediction_service.predict_cluster import Cluster
-from prediction_service.predict_class import Classifier
+
+# Adding try catch block to import modules
+# reason - because dvc repro runs -- python prediction_service/predictions.py
+#          in that we cannot import modules from prediction service, instead directly importing is Done
+
+try:
+    from prediction_service.db_connect import DbConnector
+    from prediction_service.prediction_preprocessor import Preprocessor
+    from prediction_service.cloud_connect import Cloud
+    from prediction_service.predict_cluster import Cluster
+    from prediction_service.predict_class import Classifier
+except Exception as e:
+    from db_connect import DbConnector
+    from prediction_preprocessor import Preprocessor
+    from cloud_connect import Cloud
+    from predict_cluster import Cluster
+    from predict_class import Classifier
 
 
 def read_params(config_path):
