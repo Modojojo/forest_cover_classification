@@ -17,6 +17,8 @@ except Exception:
     from src.training_data_preprocessor import Preprocessor
     from src.custom_logger import Logger
 
+config_path = "params.yaml"
+
 
 def read_params(config_path):
     with open(config_path) as config_yaml:

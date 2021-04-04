@@ -67,16 +67,15 @@ def predict_many():
 
 
 @app.route("/startTraining", methods=["POST"])
-def start_training():
-    if request.form["accessKey"] == os.environ.get("TRAINING_ACCESS_KEY"):
+def perform_training():
+    if request.form["accessKey"] == "": # os.environ.get("TRAINING_ACCESS_KEY"):
         try:
             logger = Logger()
             logger.move_logs_to_hist()
             logger.close()
-            validate_and_insert_into_db(params_path)
-            successful = start_training(params_path)
+            successful = validate_and_insert_into_db(params_path)
             if successful is True:
-                start_training(params_path)
+                start_training(config_path=params_path)
                 return render_template("process_completed.html",
                                        message="Training Process Completed, Please check logs or Metrics")
             else:

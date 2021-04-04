@@ -47,8 +47,8 @@ class Logger:
         return str(current_time)
 
     def move_logs_to_hist(self):
-        collections_list = ['raw_validation_logs', 'training_pipeline_logs', 'training_logs']
-        move_to_collection_list = ['hist_raw_validation_logs', 'hist_pipeline_logs', 'hist_training_logs']
+        collections_list = ['raw_validation_logs', 'process_logs', 'training_logs']
+        move_to_collection_list = ['hist_raw_validation_logs', 'hist_process_logs', 'hist_training_logs']
         for i in range(len(collections_list)):
             from_collection = self.database[collections_list[i]]
             to_collection = self.database[move_to_collection_list[i]]
