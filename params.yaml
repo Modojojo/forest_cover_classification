@@ -101,13 +101,13 @@ training_schema:
 prediction_schema:
   number_of_columns: 51
   target_label_encodings:
-    Lodgepole_Pine: 1
-    Spruce_Fir: 2
-    Douglas_fir: 3
-    Krummholz: 4
-    Ponderosa_Pine: 5
-    Aspen: 6
-    Cottonwood_Willow: 7
+    1: Lodgepole_Pine
+    2: Spruce_Fir
+    3: Douglas_fir
+    4: Krummholz
+    5: Ponderosa_Pine
+    6: Aspen
+    7: Cottonwood_Willow
   numerical_columns:
     - elevation
     - aspect

@@ -89,13 +89,14 @@ class DbConnector:
 
     def insert_predictions(self, predictions):
         collection = self.database[self.PREDICTIONS_COLLECTION_NAME]
+        to_insert = {}
         for i in predictions:
-            predictions[i] = str(predictions[i])
+            to_insert[str(i)] = str(predictions[i])
         timenow = self.get_time()
         datenow = self.get_date()
-        predictions['date'] = datenow
-        predictions['timestamp'] = timenow
-        collection.insert(predictions)
+        to_insert['date'] = datenow
+        to_insert['timestamp'] = timenow
+        collection.insert(to_insert)
 
     def insert_prediction_data(self, file):
         collection = self.database[self.PREDICTION_DATA_COLLECTION_NAME]

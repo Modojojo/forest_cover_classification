@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request
+from prediction_service.prediction import predict_one_record, prediction
 import yaml
 
 params_path = 'params.yaml'
@@ -32,19 +33,22 @@ def index():
         return render_template("index.html", wilderness_selection=wilderness_type_list, soil_selection=soil_type_list)
 
     elif request.method == "POST":
-        elevation = request.form["elevation"]
-        aspect = request.form["aspect"]
-        slope = request.form["slope"]
-        horizontal_distance_to_hydrology = request.form["horizontal_distance_to_hydrology"]
-        vertical_distance_to_hydrology = request.form["vertical_distance_to_hydrology"]
-        horizontal_distance_to_roadways = request.form["horizontal_distance_to_roadways"]
-        horizontal_distance_to_fire_points = request.form["horizontal_distance_to_fire_points"]
-        return render_template("index.html", prediction=request.form)
+        prediction = predict_one_record(request.form, params_path)
+        return render_template("index.html",
+                               prediction="Forest Type Predicted : " + prediction.replace("_", " ").upper())
 
 
-@app.route("/training", methods=["GET"])
+@app.route("/training_dashboard", methods=["GET"])
 def training_dashboard():
     return render_template("training_dashboard.html")
+
+
+@app.route("/predict", methods=["GET"])
+def predict_many():
+    print("prediction batch started")
+    predictions = prediction(params_path)
+    return render_template("process_completed.html",
+                           message="Batch Data Prediction Process Completed, Predictions have been saved to database")
 
 
 if __name__ == "__main__":

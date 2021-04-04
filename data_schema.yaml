@@ -1,47 +1,47 @@
 wilderness_type:
-  - Rawah Wilderness Area: 0
-  - Neota Wilderness Area: 1
-  - Comanche Peak Wilderness Area: 2
-  - Cache la Poudre Wilderness Area: 3
+  - Rawah Wilderness Area: 1
+  - Neota Wilderness Area: 2
+  - Comanche Peak Wilderness Area: 3
+  - Cache la Poudre Wilderness Area: 4
 
 soil_type:
-  - Cathedral family - Rock outcrop complex, extremely stony: 0
-  - Vanet - Ratake families complex, very stony: 1
-  - Haploborolis - Rock outcrop complex, rubbly: 2
-  - Ratake family - Rock outcrop complex, rubbly: 3
-  - Vanet family - Rock outcrop complex complex, rubbly: 4
-  - Vanet - Wetmore families - Rock outcrop complex, stony: 5
-  - Gothic family: 6
-  - Supervisor - Limber families complex: 7
-  - Troutville family, very stony: 8
-  - Bullwark - Catamount families - Rock outcrop complex, rubbly: 9
-  - Bullwark - Catamount families - Rock land complex, rubbly: 10
-  - Legault family - Rock land complex, stony: 11
-  - Catamount family - Rock land - Bullwark family complex, rubbly: 12
-  - Pachic Argiborolis - Aquolis complex: 13
-  - unspecified in the USFS Soil and ELU Survey: 14
-  - Cryaquolis - Cryoborolis complex: 15
-  - Gateview family - Cryaquolis complex: 16
-  - Rogert family, very stony: 17
-  - Typic Cryaquolis - Borohemists complex: 18
-  - Typic Cryaquepts - Typic Cryaquolls complex: 19
-  - Typic Cryaquolls - Leighcan family, till substratum complex: 20
-  - Leighcan family, till substratum, extremely bouldery: 21
-  - Leighcan family, till substratum - Typic Cryaquolls complex: 22
-  - Leighcan family, extremely stony: 23
-  - Leighcan family, warm, extremely stony: 24
-  - Granile - Catamount families complex, very stony: 25
-  - Leighcan family, warm - Rock outcrop complex, extremely stony: 26
-  - Leighcan family - Rock outcrop complex, extremely stony: 27
-  - Como - Legault families complex, extremely stony: 28
-  - Como family - Rock land - Legault family complex, extremely stony: 29
-  - Leighcan - Catamount families complex, extremely stony: 30
-  - Catamount family - Rock outcrop - Leighcan family complex, extremely stony: 31
-  - Leighcan - Catamount families - Rock outcrop complex, extremely stony: 32
-  - Cryorthents - Rock land complex, extremely stony: 33
-  - Cryumbrepts - Rock outcrop - Cryaquepts complex: 34
-  - Bross family - Rock land - Cryumbrepts complex, extremely stony: 35
-  - Rock outcrop - Cryumbrepts - Cryorthents complex, extremely stony: 36
-  - Leighcan - Moran families - Cryaquolls complex, extremely stony: 37
-  - Moran family - Cryorthents - Leighcan family complex, extremely stony: 38
-  - Moran family - Cryorthents - Rock land complex, extremely stony: 39
+  - Cathedral family - Rock outcrop complex, extremely stony: 1
+  - Vanet - Ratake families complex, very stony: 2
+  - Haploborolis - Rock outcrop complex, rubbly: 3
+  - Ratake family - Rock outcrop complex, rubbly: 4
+  - Vanet family - Rock outcrop complex complex, rubbly: 5
+  - Vanet - Wetmore families - Rock outcrop complex, stony: 6
+  - Gothic family: 7
+  - Supervisor - Limber families complex: 8
+  - Troutville family, very stony: 9
+  - Bullwark - Catamount families - Rock outcrop complex, rubbly: 10
+  - Bullwark - Catamount families - Rock land complex, rubbly: 11
+  - Legault family - Rock land complex, stony: 12
+  - Catamount family - Rock land - Bullwark family complex, rubbly: 13
+  - Pachic Argiborolis - Aquolis complex: 14
+  - unspecified in the USFS Soil and ELU Survey: 15
+  - Cryaquolis - Cryoborolis complex: 16
+  - Gateview family - Cryaquolis complex: 17
+  - Rogert family, very stony: 18
+  - Typic Cryaquolis - Borohemists complex: 19
+  - Typic Cryaquepts - Typic Cryaquolls complex: 20
+  - Typic Cryaquolls - Leighcan family, till substratum complex: 21
+  - Leighcan family, till substratum, extremely bouldery: 22
+  - Leighcan family, till substratum - Typic Cryaquolls complex: 23
+  - Leighcan family, extremely stony: 24
+  - Leighcan family, warm, extremely stony: 25
+  - Granile - Catamount families complex, very stony: 26
+  - Leighcan family, warm - Rock outcrop complex, extremely stony: 27
+  - Leighcan family - Rock outcrop complex, extremely stony: 28
+  - Como - Legault families complex, extremely stony: 29
+  - Como family - Rock land - Legault family complex, extremely stony: 30
+  - Leighcan - Catamount families complex, extremely stony: 31
+  - Catamount family - Rock outcrop - Leighcan family complex, extremely stony: 32
+  - Leighcan - Catamount families - Rock outcrop complex, extremely stony: 33
+  - Cryorthents - Rock land complex, extremely stony: 34
+  - Cryumbrepts - Rock outcrop - Cryaquepts complex: 35
+  - Bross family - Rock land - Cryumbrepts complex, extremely stony: 36
+  - Rock outcrop - Cryumbrepts - Cryorthents complex, extremely stony: 37
+  - Leighcan - Moran families - Cryaquolls complex, extremely stony: 38
+  - Moran family - Cryorthents - Leighcan family complex, extremely stony: 39
+  - Moran family - Cryorthents - Rock land complex, extremely stony: 40

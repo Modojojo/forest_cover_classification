@@ -1,0 +1,83 @@
+<html>
+<head>
+    <title>dashboard</title>
+    <link rel = "stylesheet" type = "text/css" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <style>
+        .bgr-gray{
+            background-color:#ffffff;
+        }
+        .body-bgr{
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+        .body-img{
+            background-image: url('bg.jpg');
+        }
+        .navbar-bg{
+            background-color:#464f41;
+        }
+        .input-bg{
+            background-color: rgba(204, 237, 208, 0.3);
+            border: 0px;
+        }
+        .card-bg {
+            background-color: rgba(131, 158, 134, 0.5);
+            border: 0px;
+        }
+        hr.solid {
+            border-top: 3px solid linear-gradient(to bottom right, #FF5F6D, #FFC371);
+        }
+        .hr1 {
+            border:1px;
+            border-radius:1px;
+            height: 3px;
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+    </style>
+</head>
+<body class = "body-bgr">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg shadow-lg">
+      <a class="navbar-brand" href="#">Forest Cover - Training Dashboard</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#"><i class="bi bi-card-text"></i> Training Dashboard<span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#"><i class="bi bi-file-earmark-code-fill"></i> Source Code</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class = "container-fluid">
+        <div class = "row mt-5 mb-5 ml-5 mr-5 ">
+
+            <div class = "card col-md-12 card-bg text-center">
+                <div class = card-body>
+                    <div class = form-group>
+                        <blockquote>
+                            <h4>{{message}}</h4>
+                        </blockquote>
+                    </div>
+                    <div class = "form-group">
+                        <a href = "/training_dashboard" class="btn btn-success">Return to Dashboard</a>
+                    </div>
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type = "text/javascript">
+
+    </script>
+</body>
+</html>
