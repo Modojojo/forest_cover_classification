@@ -1,12 +1,19 @@
-from db_connect import DbConnector
-from model_builder import Model
-from cluster_builder import Cluster
-from cloud_connect import Cloud
-from training_data_preprocessor import Preprocessor
 from sklearn.model_selection import train_test_split
 import argparse
 import yaml
 import json
+try:
+    from db_connect import DbConnector
+    from model_builder import Model
+    from cluster_builder import Cluster
+    from cloud_connect import Cloud
+    from training_data_preprocessor import Preprocessor
+except Exception:
+    from src.db_connect import DbConnector
+    from src.model_builder import Model
+    from src.cluster_builder import Cluster
+    from src.cloud_connect import Cloud
+    from src.training_data_preprocessor import Preprocessor
 
 
 def read_params(config_path):
@@ -74,7 +81,7 @@ def start_training(config_path):
         model_filename = str(cluster_number) + '_' + str(best_model_name) + '/' + 'model.pkl'
         cloud.save_model(best_model, model_filename)    # Save model to cloud
         db.save_metrics(best_model_metrics)     # Save trained model metrics in database
-        prediction_schema_dict[str(cluster_number)] = model_filename    # saving the model ralated to current cluster no
+        prediction_schema_dict[str(cluster_number)] = model_filename    # saving the model related to current cluster no
         print("Trained Best Model {} for cluster {}".format(best_model_name, cluster_number))
 
     cloud.write_json(prediction_schema_dict, "prediction_schema.json")  # writing prediction schema file to cloud
