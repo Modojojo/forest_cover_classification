@@ -68,7 +68,7 @@ def predict_many():
 
 @app.route("/startTraining", methods=["POST"])
 def perform_training():
-    if request.form["accessKey"] == "": # os.environ.get("TRAINING_ACCESS_KEY"):
+    if request.form["accessKey"] == os.environ.get("TRAINING_ACCESS_KEY"):
         try:
             logger = Logger()
             logger.move_logs_to_hist()
