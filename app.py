@@ -51,5 +51,14 @@ def predict_many():
                            message="Batch Data Prediction Process Completed, Predictions have been saved to database")
 
 
+@app.route('/check', methods=["GET"])
+def check():
+    try:
+        var = os.environ.get("DB_NAME")
+    except Exception as e:
+        var = str(e)
+    return render_template("training_dashboard.html", check = var)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -96,7 +96,10 @@
                         <hr class="hr1">
                         <h6 class="card-subtitle mb-2 text-muted">Open Previously trained model Stats</h6>
                         <p class="card-text">View Metrics for Each model trained during the Training Process</p>
-                        <form action="/metrics" method="get">
+                        <div>
+                            <h3>{{ check }}</h3>
+                        </div>
+                        <form action="/check" method="get">
                             <button class="btn btn-dark" id="metricsBtn" type="submit">View Statistics</button>
                         </form>
                     </div>
