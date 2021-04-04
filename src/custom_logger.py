@@ -75,7 +75,7 @@ class Logger:
             collection = self.database['prediction_logs']
 
         elif log_type == 'training_pipeline':
-            collection = self.database['training_pipeline_logs']
+            collection = self.database['process_logs']
 
         if collection is not None:
             for row in collection.find({}, {'_id': 0}):

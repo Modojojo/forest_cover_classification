@@ -21,7 +21,7 @@
         }
         .card-bg {
             background-color: rgba(131, 158, 134, 0.5);
-            border: 0px;
+            border: 1px;
         }
         hr.solid {
             border-top: 3px solid linear-gradient(to bottom right, #FF5F6D, #FFC371);
@@ -55,7 +55,7 @@
       </div>
     </nav>
     <div class = "container-fluid">
-        <ul class="list-group ml-5 mr-5 mt-5 mb-5">
+        <ul class="list-group ml-5 mr-5 mt-5 mb-5 shadow-lg">
             {% for log in logs %}
             <li class="list-group-item">{{log[0]}} - {{log[1]}}</li>
             {% endfor %}
