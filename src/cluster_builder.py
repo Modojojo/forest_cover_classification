@@ -4,7 +4,7 @@ from kneed import KneeLocator
 
 class Cluster:
     def __init__(self, cloud_object, logger=None):
-        #self.logger = logger
+        self.logger = logger
         self.cloud = cloud_object
         self.max_n_clusters = 10
         self.k_clusters = None
@@ -20,15 +20,14 @@ class Cluster:
         """
         try:
             k_clusters = self.knee_finder(features)
-            # self.logger.pipeline_logs('CLUSTERING : Creating Model and fitting data')
+            self.logger.log_training_pipeline('TRAINING: CLUSTERING : Creating Clusters [algorithm = k-means++]')
             model = KMeans(n_clusters=k_clusters, init='k-means++')
             cluster_label = model.fit_predict(features)
+            self.logger.log_training_pipeline('TRAINING: CLUSTERING: Saving Model to Cloud')
             self.cloud.save_model(model, self.save_filename)
-            # self.logger.pipeline_logs('CLUSTERING : Models saved to cloud')
-            # self.logger.log_training('Created {} clusters'.format(k_clusters))
             return cluster_label
         except Exception as e:
-            # self.logger.pipeline_logs('Error Occurred while Creating Clusters')
+            self.logger.log_training_pipeline('FAILED: Error Occurred while Creating Clusters')
             raise e
 
     def knee_finder(self, features):
@@ -38,7 +37,7 @@ class Cluster:
         :return: Optimal number of clusters
         """
         try:
-            # self.logger.pipeline_logs('CLUSTERING : Finding Optimal number of Clusters')
+            self.logger.log_training_pipeline('TRAINING :CLUSTERING: Finding Optimal number of Clusters')
             wcss = []
             for no_of_clusters in range(1, self.max_n_clusters):
                 model = KMeans(n_clusters=no_of_clusters, init='k-means++')
@@ -46,10 +45,12 @@ class Cluster:
                 wcss.append(model.inertia_)
             knee_locator = KneeLocator(range(1, self.max_n_clusters), wcss, curve='convex', direction='decreasing')
             self.k_clusters = knee_locator.knee
-            # self.logger.pipeline_logs('CLUSTERING : Completed Finding optimal Number Of Clusters [{}]'.format(self.k_clusters))
+            self.logger.log_training_pipeline(
+                'TRAINING: CLUSTERING : Optimal Number of Clusters Found : [{}]'.format(self.k_clusters)
+            )
             return knee_locator.knee
         except Exception as e:
-            # self.logger.pipeline_logs('Error Occurred while Locating Knee')
+            self.logger.log_training_pipeline('FAILED: Error Occurred while Locating Knee')
             raise e
 
     def load_clustering_model(self):

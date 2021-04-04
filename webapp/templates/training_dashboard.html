@@ -66,7 +66,7 @@
                         <hr class="hr1">
                         <h6 class="card-subtitle mb-2 text-muted">Commence the training Process</h6>
                         <p class="card-text">Starts the Training process with whatever recent data is Available on Server data folder</p>
-                        <form action="/train" method="get">
+                        <form action="/enterAccessKey" method="get">
                             <button class="btn btn-dark" id="trainBtn" type="submit">Start Training</button>
                         </form>
 
@@ -113,9 +113,9 @@
                         <hr class="hr1">
                         <p class="card-text">Lets you View the logs based on the selection.</p>
                         <form action="/logs" method="post">
-                            <select name = "logs" class="form-select form-control form-group">
+                            <select name = "logs" class="form-select form-control form-group input-bg">
                               <option selected>Select Logs type</option>
-                              <option value="process">Process Logs</option>
+                              <option value="training_process">Training Process Logs</option>
                               <option value="training">Training Logs</option>
                               <option value="file_validation">File Validation Logs</option>
                             </select>

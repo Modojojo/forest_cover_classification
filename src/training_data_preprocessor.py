@@ -5,7 +5,8 @@ import numpy as np
 
 
 class Preprocessor:
-    def __init__(self, config):
+    def __init__(self, config, logger_object):
+        self.logger = logger_object
         self.config = config
         self.target_col = config["base"]["target_col"]
         self.feature_scaling_model = None
@@ -17,6 +18,7 @@ class Preprocessor:
         return data
 
     def feature_scaling(self, data):
+        self.logger.log_training_pipeline("TRAINING: PRE-PROCESSING: Performing Feature Scaling")
         numerical_columns = self.config["training_schema"]["numerical_columns"]
         new_data = data[numerical_columns]
         stdScalar = StandardScaler()
@@ -33,7 +35,7 @@ class Preprocessor:
         return features, labels
 
     def oversample_smote(self, features, labels):
-        print("Performing Sampling")
+        self.logger.log_training_pipeline("TRAINING: PRE-PROCESSING: Performing Oversampling for class re-balance")
         over_sampler = SMOTE()
         features, labels = over_sampler.fit_resample(features, labels)
         return features, labels
@@ -50,6 +52,7 @@ class Preprocessor:
             dataframe = dataframe.drop(to_drop, axis=1)
             print(f"Dropped cols : {to_drop}")
             self.dropped_cols = to_drop
+            self.logger.log_training_pipeline(f"TRAINING: PRE-PROCESSING: Dropping non-useful columns: {to_drop}")
         return dataframe
 
     def preprocess(self, data):

@@ -30,6 +30,7 @@ def fetch_validate_load(config_path):
             "number_of_documents_inserted": inserted
         }
         json.dump(report, f, indent=4)
+    db.close()
 
 
 def fetch_data(config):

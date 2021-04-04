@@ -1,6 +1,3 @@
-import pandas as pd
-
-
 class Classifier:
     def __init__(self, config, cloud, prediction_schema):
         self.config = config

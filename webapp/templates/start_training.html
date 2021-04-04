@@ -58,20 +58,23 @@
 
     <div class = "container-fluid">
         <div class = "row mt-5 mb-5 ml-5 mr-5 ">
-
-            <div class = "card col-md-12 card-bg text-center">
-                <div class = card-body>
-                    <div class = form-group>
-                        <blockquote>
-                            <h4>{{message}}</h4>
-                        </blockquote>
-                    </div>
-                    <div class = "form-group">
-                        <a href = "/training_dashboard" class="btn btn-success">Return to Dashboard</a>
+            <div class = "col-md-4"></div>
+            <div class = "col-md-4">
+                <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Start Training</h5>
+                        <hr class="hr1">
+                        <h6 class="card-subtitle mb-2 text-muted">Starts the Training Process</h6>
+                        <p class="card-text">Please Enter the Training Access key to Start Training</p>
+                        <form action="/startTraining" method="post">
+                            <div class = "form-group">
+                                <input type="password" name="accessKey" class="input-bg form-control" placeholder="Please Enter the Access Key">
+                            </div>
+                            <button class="btn btn-dark" type="submit">Validate and Start</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

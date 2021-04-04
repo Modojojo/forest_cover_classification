@@ -1,7 +1,11 @@
 import os
 from flask import Flask, render_template, request
-from prediction_service.prediction import predict_one_record, prediction
+from prediction_service.prediction import predict_one_record, prediction, ValueNotEntered
 import yaml
+from src.training import start_training
+from src.val_insert_training_data_db import validate_and_insert_into_db
+import pymongo.errors
+from src.custom_logger import Logger
 
 params_path = 'params.yaml'
 webapp_root = 'webapp'
@@ -33,9 +37,12 @@ def index():
         return render_template("index.html", wilderness_selection=wilderness_type_list, soil_selection=soil_type_list)
 
     elif request.method == "POST":
-        prediction = predict_one_record(request.form, params_path)
-        return render_template("index.html",
-                               prediction="Forest Type Predicted : " + prediction.replace("_", " ").upper())
+        try:
+            prediction = predict_one_record(request.form, params_path)
+            return render_template("index.html",
+                                   prediction="Forest Type Predicted : " + prediction.replace("_", " ").upper())
+        except ValueNotEntered as e:
+            return render_template("error_page.html", message=str(e))
 
 
 @app.route("/training_dashboard", methods=["GET"])
@@ -45,10 +52,75 @@ def training_dashboard():
 
 @app.route("/predict", methods=["GET"])
 def predict_many():
-    print("prediction batch started")
-    predictions = prediction(params_path)
-    return render_template("process_completed.html",
-                           message="Batch Data Prediction Process Completed, Predictions have been saved to database")
+    try:
+        predictions = prediction(params_path)
+        return render_template("process_completed.html",
+                               message="Batch Data Prediction Process Completed,"
+                                       " Predictions have been saved to database")
+    except pymongo.errors.ServerSelectionTimeoutError:
+        return render_template("error_page.html",
+                               message="Could not connect to the Database\nAsk admin to check if Database "
+                                       "is running properly")
+
+    except Exception as e:
+        return render_template("error_page.html", message=str(e))
+
+
+@app.route("/startTraining", methods=["POST"])
+def start_training():
+    if request.form["accessKey"] == os.environ.get("TRAINING_ACCESS_KEY"):
+        try:
+            logger = Logger()
+            logger.move_logs_to_hist()
+            logger.close()
+            validate_and_insert_into_db(params_path)
+            successful = start_training(params_path)
+            if successful is True:
+                start_training(params_path)
+                return render_template("process_completed.html",
+                                       message="Training Process Completed, Please check logs or Metrics")
+            else:
+                return render_template("error_page.html",
+                                       message="Some Error Occurred while - Fetch/Validate/Load Process")
+        except pymongo.errors.ServerSelectionTimeoutError as e:
+            return render_template("error_page.html",
+                                   message="Cannot connect to the DB, Please check if DB is active or not")
+
+        except Exception as e:
+            return render_template("error_page.html",
+                                   message=str(e))
+
+    else:
+        return render_template("error_page.html",
+                               message="Please enter a valid access key to start training, "
+                                       "You might not have the access to start Training")
+
+
+@app.route("/enterAccessKey", methods=["GET"])
+def start_training_validator():
+    return render_template('start_training.html')
+
+
+@app.route('/logs', methods=['POST'])
+def get_logs():
+    try:
+        log_collection_name = None
+        log_type = request.form.get('logs')
+        if log_type == 'training_process':
+            log_collection_name = 'training_pipeline'
+        elif log_type == 'training':
+            log_collection_name = 'training'
+        elif log_type == 'file_validation':
+            log_collection_name = 'file_validation'
+
+        logger = Logger()
+        logs = logger.export_logs(log_collection_name)
+        logger.close()
+        return render_template('logs.html', logs=logs)
+    except pymongo.errors.ServerSelectionTimeoutError as e:
+        return render_template("error_page.html", message=str(e))
+    except Exception as e:
+        return render_template("error_page.html", message=str("Error while fetching Logs"))
 
 
 if __name__ == "__main__":

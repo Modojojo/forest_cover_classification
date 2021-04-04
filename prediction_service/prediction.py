@@ -2,6 +2,7 @@ import argparse
 import yaml
 import pandas as pd
 import numpy as np
+import re
 
 # Adding try catch block to import modules
 # reason - because dvc repro runs -- python prediction_service/predictions.py
@@ -62,8 +63,10 @@ def prediction(config_path, data=False):
     if data is False:
         db.insert_predictions(predictions)
         print("saving predictions to DB")
+        db.close()
         return True
     else:
+        db.close()
         return predictions
 
 
@@ -81,6 +84,7 @@ def predict_one_record(form, config_path):
     wilderness_type_column_name = "wilderness_area" + str(wilderness_type)
 
     # prepare for prediction:
+
     config = read_params(config_path)
     columns = config["prediction_schema"]["column_names"]
     data = np.zeros(len(columns)).astype(int)
@@ -89,11 +93,26 @@ def predict_one_record(form, config_path):
     df[[wilderness_type_column_name]] = 1
     df[[soil_type_column_name]] = 1
 
+    # check if any empty column is there:
+    for value in values:
+        if value == "":
+            raise ValueNotEntered
+    if not re.match(r"^soil_type_[0-9]{1,2}$", soil_type_column_name):
+        raise ValueNotEntered
+    if not re.match(r"^wilderness_area[0-9]{1}$", wilderness_type_column_name):
+        raise ValueNotEntered
+
     # Predict
     prediction_ = prediction(config_path=config_path, data=df)
     predicted_class = prediction_[0]
     class_label = config["prediction_schema"]["target_label_encodings"][predicted_class]
     return class_label
+
+
+class ValueNotEntered(Exception):
+    def __init__(self, message="Values Not Entered Properly"):
+        self.message = message
+        super().__init__(self.message)
 
 
 if __name__ == "__main__":

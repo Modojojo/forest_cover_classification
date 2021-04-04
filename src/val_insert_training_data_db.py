@@ -1,9 +1,15 @@
 import argparse
 import json
-from training_validator import Validator
-from fetch_data_from_cloud import read_params, fetch_data
-from db_connect import DbConnector
-import json
+try:
+    from training_validator import Validator
+    from fetch_data_from_cloud import read_params, fetch_data
+    from db_connect import DbConnector
+    from custom_logger import Logger
+except Exception:
+    from src.training_validator import Validator
+    from src.fetch_data_from_cloud import read_params, fetch_data
+    from src.db_connect import DbConnector
+    from src.custom_logger import Logger
 
 
 def validate_and_insert_into_db(config_path):
@@ -15,9 +21,18 @@ def validate_and_insert_into_db(config_path):
     accepted_data = []
     accepted_filenames = []
     config = read_params(config_path)
+
+    # Instantiating logger
+    logger = Logger()
+
     dataframes = fetch_data(config_path)
+
+    logger.log_training_pipeline(
+        "FILE VALIDATION: STARTED: raw file validation started, Please check file validation logs for more info"
+    )
+
     for filename in dataframes:
-        data = validate_data(filename, dataframes[filename])
+        data = validate_data(filename, dataframes[filename], logger)
         if data is not False:
             accepted_data.append(data)
             accepted_filenames.append(filename)
@@ -31,6 +46,10 @@ def validate_and_insert_into_db(config_path):
         json.dump(report, f, indent=4)
 
     # insert data into database
+    logger.log_training_pipeline(
+        "DB OPERATIONS: Inserting data from validated files into Good Data/Training data folder in Database"
+    )
+
     n_records_inserted = insert_into_db(accepted_data, config)
     insertion_report_dir = config["reports"]["training_data_insertion_report"]
     with open(insertion_report_dir, "w") as f:
@@ -39,10 +58,11 @@ def validate_and_insert_into_db(config_path):
         }
         json.dump(report, f, indent=4)
 
+    logger.close()  # close database connection
     return True
 
 
-def validate_data(filename, data):
+def validate_data(filename, data, logger):
     """
     Utility function for data validation
     :param filename:
@@ -63,19 +83,20 @@ def validate_data(filename, data):
                         data = features
                         return data
                     except Exception as e:
-                        print(f"rejected {filename} : Not able to convert column data type to int")
+                        logger.log_file_validation(
+                            f"FILE VALIDATION: REJECTED {filename} : Not able to convert column data type to int")
                         return False
                 else:
-                    print(f"rejected {filename} due to null column encounter")
+                    logger.log_file_validation(f"FILE VALIDATION: REJECTED {filename} due to null column encounter")
                     return False
             else:
-                print(f"rejected {filename} due to invalid name of columns")
+                logger.log_file_validation(f"FILE VALIDATION: REJECTED {filename} due to invalid name of columns")
                 return False
         else:
-            print(f"rejected {filename} due to invalid Number of columns")
+            logger.log_file_validation(f"FILE VALIDATION: REJECTED {filename} due to invalid Number of columns")
             return False
     else:
-        print(f"rejected {filename} due to incorrect filename")
+        logger.log_file_validation(f"FILE VALIDATION: REJECTED {filename} due to incorrect filename")
         return False
 
 
