@@ -54,7 +54,7 @@ def predict_many():
 @app.route('/check', methods=["GET"])
 def check():
     try:
-        var = os.environ.get("DB_NAME")
+        var = os.environ.get("CLOUD_ACCESS_KEY")
     except Exception as e:
         var = str(e)
     return render_template("training_dashboard.html", check = var)
