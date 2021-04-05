@@ -2,6 +2,7 @@
 <head>
     <title>Forest Cover App</title>
     <link rel = "stylesheet" type = "text/css" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <style>
         .bgr-gray{
             background-color:#ffffff;
@@ -36,20 +37,20 @@
 </head>
 <body class = "body-bgr">
     <nav class="navbar navbar-expand-lg navbar-dark navbar-bg shadow-lg">
-      <a class="navbar-brand" href="#">Forest Cover - Logs</a>
+      <a class="navbar-brand" href="#">Forest Cover App - Logs</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home</a>
+            <a class="nav-link" href="/"><i class="bi bi-house-fill"></i> Home<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#"><i class="bi bi-card-text"></i> Training Dashboard<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/training_dashboard"><i class="bi bi-card-text"></i> Training Dashboard</a>
           </li>
             <li class="nav-item">
-            <a class="nav-link" href="#"><i class="bi bi-file-earmark-code-fill"></i> Source Code</a>
+            <a class="nav-link" href="#"><i class="bi bi-github"></i> Source Code</a>
           </li>
         </ul>
       </div>
@@ -61,5 +62,10 @@
             {% endfor %}
         </ul>
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>

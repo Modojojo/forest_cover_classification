@@ -50,7 +50,7 @@
             <a class="nav-link" href="#"><i class="bi bi-card-text"></i> Training Dashboard<span class="sr-only">(current)</span></a>
           </li>
             <li class="nav-item">
-            <a class="nav-link" href="#"><i class="bi bi-file-earmark-code-fill"></i> Source Code</a>
+            <a class="nav-link" href="#"><i class="bi bi-github"></i> Source Code</a>
           </li>
         </ul>
       </div>
@@ -62,7 +62,7 @@
             <div class = "col-md-4">
                 <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Start Training</h5>
+                        <h5 class="card-title">Start Training <i class="fas fa-cogs"></i></h5>
                         <hr class="hr1">
                         <h6 class="card-subtitle mb-2 text-muted">Commence the training Process</h6>
                         <p class="card-text">Starts the Training process with whatever recent data is Available on Server data folder</p>
@@ -92,14 +92,14 @@
             <div class = "col-md-4">
                 <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">View Statistics</h5>
+                        <h5 class="card-title">View Training Statistics <i class="bi bi-graph-up"></i></h5>
                         <hr class="hr1">
-                        <h6 class="card-subtitle mb-2 text-muted">Open Previously trained model Stats</h6>
-                        <p class="card-text">View Metrics for Each model trained during the Training Process</p>
+                        <h6 class="card-subtitle mb-2 text-muted">Open Previously trained model Statistics</h6>
+                        <p class="card-text">View Metrics for Each model trained during the previous Training Process</p>
                         <div>
                             <h3></h3>
                         </div>
-                        <form action="/" method="get">
+                        <form action="/metrics" method="get">
                             <button class="btn btn-dark" id="metricsBtn" type="submit">View Statistics</button>
                         </form>
                     </div>
@@ -109,9 +109,10 @@
             <div class = "col-md-4">
                 <div class="card card-bg text-center col-md-12 ml-2 mr-2 mt-3 mb-3 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Logs</h5>
+                        <h5 class="card-title">Logs <i class="bi bi-journal-text"></i></h5>
                         <hr class="hr1">
-                        <p class="card-text">Lets you View the logs based on the selection.</p>
+                        <h6 class="card-subtitle mb-2 text-muted">View Logs</h6>
+                        <p class="card-text">Lets you View the logs generated during the previous training process based on the selection of log types</p>
                         <form action="/logs" method="post">
                             <select name = "logs" class="form-select form-control form-group input-bg">
                               <option selected>Select Logs type</option>
@@ -128,9 +129,9 @@
         </div>
     </div>
 
-    <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type = "text/javascript">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    </script>
 </body>
 </html>

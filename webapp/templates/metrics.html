@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Forest Cover Prediction</title>
+    <link rel = "stylesheet" type = "text/css" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+    <style>
+        .bgr-gray{
+            background-color:#ffffff;
+        }
+        .body-bgr{
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+        .body-img{
+            background-image: url('bg.jpg');
+        }
+        .navbar-bg{
+            background-color:#464f41;
+        }
+        .input-bg{
+            background-color: rgba(204, 237, 208, 0.3);
+            border: 0px;
+        }
+        .card-bg {
+            background-color: rgba(131, 158, 134, 0.5);
+            border: 0px;
+        }
+        hr.solid {
+            border-top: 3px solid linear-gradient(to bottom right, #FF5F6D, #FFC371);
+        }
+        .hr1 {
+            border:1px;
+            border-radius:1px;
+            height: 3px;
+            background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+        }
+    </style>
+</head>
+<body class = "body-bgr">
+    <nav class="navbar navbar-dark navbar-bg shadow">
+        <span class="navbar-brand mb-0 h1"><i class="bi bi-bar-chart"></i> Statistics</span>
+    </nav>
+    <div class = "container-fluid">
+        <div class = "row mt-5 mb-5 ml-5 mr-5">
+            <div class="card-deck col-md-12">
+                {% for metric in metrics %}
+                <div class="card card-bg shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">{{metric['model']}}</h5>
+                        <hr class="solid">
+                        <p class="card-text">Accuracy: {{metric['accuracy']}}</p>
+                        <p class="card-text">Recall: {{metric['recall']}}</p>
+                        <p class="card-text">Precision: {{metric['precision']}}</p>
+                        <p class="card-text">F1 Score: {{metric['f1']}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text"><small class="text-muted">Last updated {{metric['date']}} {{metric['timestamp']}}</small></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="fixed-bottom">
+            <nav class="navbar navbar-dark navbar-bg shadow">
+                <span></span>
+                <form action = "/training_dashboard" method="get" class="form-inline my-2 my-lg-0">
+                        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Back to Dashboard</button>
+                </form>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>

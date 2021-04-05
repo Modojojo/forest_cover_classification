@@ -2,10 +2,12 @@ import os
 from flask import Flask, render_template, request
 from prediction_service.prediction import predict_one_record, prediction, ValueNotEntered
 import yaml
-from src.training import start_training
+from src.training import start_training, read_params
 from src.val_insert_training_data_db import validate_and_insert_into_db
 import pymongo.errors
 from src.custom_logger import Logger
+from src.db_connect import DbConnector
+
 
 params_path = 'params.yaml'
 webapp_root = 'webapp'
@@ -81,7 +83,7 @@ def perform_training():
             else:
                 return render_template("error_page.html",
                                        message="Some Error Occurred while - Fetch/Validate/Load Process")
-        except pymongo.errors.ServerSelectionTimeoutError as e:
+        except pymongo.errors.ServerSelectionTimeoutError:
             return render_template("error_page.html",
                                    message="Cannot connect to the DB, Please check if DB is active or not")
 
@@ -116,10 +118,23 @@ def get_logs():
         logs = logger.export_logs(log_collection_name)
         logger.close()
         return render_template('logs.html', logs=logs)
-    except pymongo.errors.ServerSelectionTimeoutError as e:
-        return render_template("error_page.html", message=str(e))
+    except pymongo.errors.ServerSelectionTimeoutError:
+        return render_template("error_page.html", message=str("Please ask the admin to Check Database Connection"))
     except Exception as e:
-        return render_template("error_page.html", message=str("Error while fetching Logs"))
+        return render_template("error_page.html", message=str(e))
+
+
+@app.route("/metrics", methods=["GET"])
+def get_metrics():
+    try:
+        config = read_params(params_path)
+        db = DbConnector(config)
+        metrics = db.fetch_metrics()
+        return render_template("metrics.html", metrics=metrics)
+    except pymongo.errors.ServerSelectionTimeoutError:
+        return render_template("error_page.html", message="Please ask Admin to check the Database Connection")
+    except Exception as e:
+        return render_template("error_page.html", message=str(e))
 
 
 if __name__ == "__main__":
